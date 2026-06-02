@@ -1,4 +1,5 @@
 # Ignore Claude temporary/local data
+.claude
 .claude/
 
 # macOS files
