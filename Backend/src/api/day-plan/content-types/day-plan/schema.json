@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "day_plans",
+  "info": {
+    "singularName": "day-plan",
+    "pluralName": "day-plans",
+    "displayName": "DayPlan"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dayOfWeek": {
+      "type": "enumeration",
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ]
+    },
+    "date": {
+      "type": "date"
+    },
+    "dayType": {
+      "type": "enumeration",
+      "enum": [
+        "normal",
+        "urgent_only",
+        "day_off"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "week_agendum": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::week-agenda.week-agenda",
+      "inversedBy": "day_plans"
+    },
+    "time_slots": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::time-slot.time-slot",
+      "mappedBy": "day_plan"
+    },
+    "busyness": {
+      "type": "decimal"
+    },
+    "availableSlots": {
+      "type": "integer"
+    },
+    "totalSlots": {
+      "type": "integer"
+    }
+  }
+}

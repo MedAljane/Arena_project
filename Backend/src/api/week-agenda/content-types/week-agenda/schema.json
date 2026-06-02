@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "week_agendas",
+  "info": {
+    "singularName": "week-agenda",
+    "pluralName": "week-agendas",
+    "displayName": "WeekAgenda"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "weekStartDate": {
+      "type": "date"
+    },
+    "statu": {
+      "type": "enumeration",
+      "enum": [
+        "Draft",
+        "Published"
+      ]
+    },
+    "day_plans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::day-plan.day-plan",
+      "mappedBy": "week_agendum"
+    },
+    "terrain": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::terrain.terrain",
+      "inversedBy": "week_agenda"
+    },
+    "campus": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::campus.campus",
+      "inversedBy": "week_agenda"
+    },
+    "busyness": {
+      "type": "decimal"
+    },
+    "availableSlots": {
+      "type": "integer"
+    },
+    "totalSlots": {
+      "type": "integer"
+    }
+  }
+}

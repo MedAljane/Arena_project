@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s 'http://192.168.0.241:1337/api/week-agendas/available-slots?campusId=11&terrainType=Football&date=2026-06-03' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9yb2xlIjoicGxheWVyIiwiaWF0IjoxNzgwMTc0NDU4LCJleHAiOjE3ODA3NzkyNTh9.uzODVi1pCaVzPPVPsjOX7xMnmwx9z7mG2Q3bJ_xQhV0')",
+      "Bash(curl -s http://192.168.0.241:1337/api/week-agendas/4 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9yb2xlIjoicGxheWVyIiwiaWF0IjoxNzgwMTc0NDU4LCJleHAiOjE3ODA3NzkyNTh9.uzODVi1pCaVzPPVPsjOX7xMnmwx9z7mG2Q3bJ_xQhV0')"
+    ]
+  }
+}

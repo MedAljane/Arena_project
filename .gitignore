@@ -1,0 +1,82 @@
+# Ignore Claude temporary/local data
+.claude/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node.js / Backend
+Backend/node_modules/
+Backend/npm-debug.log*
+Backend/yarn-error.log*
+Backend/pnpm-debug.log*
+Backend/.env
+Backend/.env.*
+Backend/dist/
+Backend/build/
+Backend/.next/
+Backend/.cache/
+Backend/.vite/
+Backend/coverage/
+Backend/.turbo/
+
+# Flutter / Frontend
+Frontend/.dart_tool/
+Frontend/.flutter-plugins
+Frontend/.flutter-plugins-dependencies
+Frontend/.packages
+Frontend/.package-config.json
+Frontend/.flutter-plugins-dependencies
+Frontend/build/
+Frontend/.gradle/
+Frontend/.idea/
+Frontend/ios/Flutter/Flutter.framework
+Frontend/ios/Flutter/Flutter.podspec
+Frontend/ios/Flutter/Generated.xcconfig
+Frontend/ios/Flutter/ephemeral/
+Frontend/ios/Pods/
+Frontend/ios/Runner.xcworkspace/
+Frontend/ios/Runner/GeneratedPluginRegistrant.*
+Frontend/android/.gradle/
+Frontend/android/app/build/
+Frontend/android/build/
+Frontend/android/local.properties
+Frontend/android/captures/
+Frontend/android/app/*.keystore
+Frontend/android/**/local.properties
+Frontend/android/**/gradle-wrapper.jar
+Frontend/android/**/gradle-wrapper.properties
+Frontend/windows/flutter/ephemeral/
+Frontend/linux/flutter/ephemeral/
+Frontend/macos/Flutter/ephemeral
+Frontend/web/firebase-messaging-sw.js
+Frontend/test/coverage/
+
+# Generated files
+Frontend/.dart_tool/package_config.json
+
+# VS Code
+.vscode/
+
+# JetBrains
+*.iml
+.idea/
+
+# Firebase
+Frontend/android/app/google-services.json
+Frontend/ios/GoogleService-Info.plist
+
+# Misc
+*.log
+*.lock
+.DS_Store
+
+# Optional: ignore user-specific IDE settings
+*.swp
+*~

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "employees",
+  "info": {
+    "singularName": "employee",
+    "pluralName": "employees",
+    "displayName": "Employee"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "User": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "terrain": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::terrain.terrain",
+      "inversedBy": "employee"
+    },
+    "firebaseUid": {
+      "type": "string"
+    },
+    "fcmToken": {
+      "type": "string"
+    },
+    "nom": {
+      "type": "string"
+    }
+  }
+}

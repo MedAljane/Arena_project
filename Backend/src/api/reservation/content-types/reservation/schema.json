@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "normal",
+        "urgent"
+      ]
+    },
+    "statu": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "confirmed",
+        "cancelled"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "bookedAt": {
+      "type": "datetime"
+    },
+    "terrain": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::terrain.terrain"
+    },
+    "time_slot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::time-slot.time-slot",
+      "inversedBy": "reservation"
+    },
+    "player": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::player.player",
+      "inversedBy": "reservations"
+    },
+    "manager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::manager.manager",
+      "inversedBy": "reservations"
+    }
+  }
+}

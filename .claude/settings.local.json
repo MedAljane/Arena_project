@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://192.168.0.241:1337/api/manager/employees -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcl9yb2xlIjoibWFuYWdlciIsImlhdCI6MTc4MDEyMzkwOCwiZXhwIjoxNzgwNzI4NzA4fQ.iIzRm9XEqWA89BMD-3ZUfbDULZz3d5dbK06U6-s9E2E')",
+      "Bash(curl -s -X POST \"http://192.168.0.241:1337/api/auth/login\" -H \"Content-Type: application/json\" -d \"{\\\\\"email\\\\\":\\\\\"mhmdaljane@gmail.com\\\\\",\\\\\"password\\\\\":\\\\\"AlMed065\\\\\"}\")",
+      "Bash(curl -s \"http://192.168.0.241:1337/api/manager/employees\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcl9yb2xlIjoibWFuYWdlciIsImlhdCI6MTc4MDE0NzYyNCwiZXhwIjoxNzgwNzUyNDI0fQ.VB0OUYJpNu92GuWndeBBqeeHJbQ_BDMrmbn6MU4FI_g\")"
+    ]
+  }
+}

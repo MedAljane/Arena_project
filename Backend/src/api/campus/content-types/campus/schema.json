@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "campuses",
+  "info": {
+    "singularName": "campus",
+    "pluralName": "campuses",
+    "displayName": "Campus"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string",
+      "required": true
+    },
+    "NbTerrains": {
+      "type": "integer",
+      "required": true
+    },
+    "Long": {
+      "type": "float",
+      "required": true
+    },
+    "Lat": {
+      "type": "float",
+      "required": true
+    },
+    "manager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::manager.manager",
+      "inversedBy": "campuses"
+    },
+    "main_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "phone": {
+      "type": "string"
+    },
+    "week_agenda": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::week-agenda.week-agenda",
+      "mappedBy": "campus"
+    },
+    "terrains": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::terrain.terrain",
+      "mappedBy": "campus"
+    }
+  }
+}

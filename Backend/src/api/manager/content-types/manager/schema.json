@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "managers",
+  "info": {
+    "singularName": "manager",
+    "pluralName": "managers",
+    "displayName": "Manager"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "campuses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::campus.campus",
+      "mappedBy": "manager"
+    },
+    "employees": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::employee.employee"
+    },
+    "firebaseUid": {
+      "type": "string"
+    },
+    "fcmToken": {
+      "type": "string"
+    },
+    "nom": {
+      "type": "string"
+    },
+    "terrain": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::terrain.terrain",
+      "inversedBy": "manager"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "manager"
+    }
+  }
+}

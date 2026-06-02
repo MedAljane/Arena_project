@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "terrains",
+  "info": {
+    "singularName": "terrain",
+    "pluralName": "terrains",
+    "displayName": "Terrain"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "Football",
+        "Basketball",
+        "Paddel",
+        "Tennis"
+      ]
+    },
+    "week_agenda": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::week-agenda.week-agenda",
+      "mappedBy": "terrain"
+    },
+    "campus": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::campus.campus",
+      "inversedBy": "terrains"
+    },
+    "employee": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::employee.employee",
+      "mappedBy": "terrain"
+    },
+    "manager": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::manager.manager",
+      "mappedBy": "terrain"
+    }
+  }
+}
