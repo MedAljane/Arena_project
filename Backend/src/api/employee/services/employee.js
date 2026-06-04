@@ -6,7 +6,7 @@ module.exports = {
 
 	// ── Self-service helpers ──────────────────────────────────────────────────
 
-	// @ts-ignore
+	
 	async getEmployeeProfile(userId) {
 		const profile = await strapi.db.query('api::employee.employee').findOne({
 			where: { User: userId },
@@ -30,7 +30,7 @@ module.exports = {
 		};
 	},
 
-	// @ts-ignore
+	
 	async updateEmployeeProfile(userId, { username, email, address, phone }) {
 		const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id: userId } });
 		if (!user) throw new Error('User not found');
@@ -56,7 +56,7 @@ module.exports = {
 
 	// ── Manager management ────────────────────────────────────────────────────
 
-	// @ts-ignore
+	
 	async registerEmployee({ username, email, password, address, phone, terrainId }) {
 
 		const existing = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
@@ -85,12 +85,10 @@ module.exports = {
 			populate: '*'
 		});
 
-		// FIX: keep both sides of the relation in sync
 		if (terrainId) {
 			await strapi.entityService.update('api::terrain.terrain', terrainId, {
 				data: { employee: employee.id }
 			});
-			// was missing: employee must also know its terrain
 			await strapi.entityService.update('api::employee.employee', employee.id, {
 				data: { terrain: terrainId }
 			});
@@ -110,19 +108,17 @@ module.exports = {
 		return { user, employeeProfile };
 	},
 
-	// @ts-ignore
+	
 	async updateEmployee(id, { username, email, address, phone }) {
 		const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 		if (!user) throw new Error('User not found');
 		if (user.user_role !== 'employee') throw new Error('User is not an employee');
 
-		// FIX: validate email uniqueness before writing, but don't gate everything on it
 		if (email && email !== user.email) {
 			const existing = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
 			if (existing) throw new Error('Email already in use');
 		}
 
-		// FIX: always update — not only when email changes
 		const updatedUser = await strapi.entityService.update('plugin::users-permissions.user', id, {
 			data: { username, email }
 		});
@@ -137,7 +133,7 @@ module.exports = {
 		return updatedUser;
 	},
 
-	// @ts-ignore
+	
 	async deleteEmployee(id) {
 		const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 		if (!user) throw new Error('User not found');
@@ -152,13 +148,13 @@ module.exports = {
 		return { message: `Employee with ID ${id} deleted successfully` };
 	},
 
-	// @ts-ignore
+	
 	async getEmployees() {
 		const users = await strapi.db.query('plugin::users-permissions.user').findMany({
 			where: { user_role: 'employee' },
 		});
 
-		// @ts-ignore
+		
 		const result = await Promise.all(users.map(async (user) => {
 			const profile = await strapi.db.query('api::employee.employee').findOne({ where: { User: user.id }, populate: ['terrain'] });
 			return {
@@ -177,7 +173,7 @@ module.exports = {
 		return result;
 	},
 
-	// @ts-ignore
+	
 	async assignTerrain(employeeId, terrainId) {
 		const employeeProfile = await strapi.db.query('api::employee.employee').findOne({ where: { User: employeeId }, populate: ['terrain'] });
 		if (!employeeProfile) throw new Error('Employee profile not found');

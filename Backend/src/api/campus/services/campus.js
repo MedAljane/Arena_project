@@ -1,7 +1,7 @@
 const manager = require("../../manager/services/manager");
 const axios = require("axios");
 
-// @ts-ignore
+
 async function getCoordsFromAddress(address) {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
 
@@ -27,9 +27,9 @@ async function getCoordsFromAddress(address) {
 
 module.exports = {
 
-    // @ts-ignore
+    
     async createCampus(name, description, address, phone, nbTerrains, mainImage, galleryImages, managerId) {
-        // @ts-ignore
+        
         const { lat, long } = await getCoordsFromAddress(address);
         console.log(`Geocoded address: ${address} -> lat: ${lat}, long: ${long}`);
 
@@ -60,7 +60,7 @@ module.exports = {
         };
     },
 
-    // @ts-ignore
+    
     async updateCampus(id, data) {
             const campus = await strapi.db.query('api::campus.campus').findOne({ where: { id } });
 
@@ -83,7 +83,7 @@ module.exports = {
 
             if (data.galleryImages && Array.isArray(data.galleryImages)) {
                 updatedData.gallery = {
-                    // @ts-ignore
+                    
                     set: data.galleryImages.map(id => ({ id }))
                 };
             }
@@ -94,7 +94,7 @@ module.exports = {
             });
         },
 
-    // @ts-ignore
+    
     async deleteCampus(id) {
             const campus = await strapi.db.query('api::campus.campus').findOne({ where: { id } });
 
@@ -112,7 +112,7 @@ module.exports = {
             return { message: `Campus with ID ${id} deleted successfully` };
         },
 
-    // @ts-ignore
+    
     async getCampuses() {
             return await strapi.db.query('api::campus.campus').findMany({
                 populate: ['main_image', 'gallery', 'manager']
@@ -120,7 +120,7 @@ module.exports = {
 
         },
 
-    // @ts-ignore
+    
     async getCampusByManager(managerId) {
             return await strapi.db.query('api::campus.campus').findMany({
                 where: { manager: managerId },
@@ -128,7 +128,7 @@ module.exports = {
             });
         },
 
-    // @ts-ignore
+    
     async getCampusById(id) {
             const campus = await strapi.db.query('api::campus.campus').findOne({
                 where: { id },

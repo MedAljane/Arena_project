@@ -16,7 +16,7 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  // @ts-ignore
+  
   async bootstrap({ strapi }) {
     const exist = await strapi.db.query('plugin::users-permissions.user').findOne({ 
       where : {

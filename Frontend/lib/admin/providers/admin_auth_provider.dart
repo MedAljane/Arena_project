@@ -2,8 +2,6 @@ import 'package:Arena/admin/api/admin_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Manages the web session for both admin and manager roles.
-/// Persists token + role in SharedPreferences (localStorage on web).
 class AdminAuthProvider extends ChangeNotifier {
   static const _tokenKey = 'admin_token';
   static const _emailKey = 'admin_email';
@@ -11,7 +9,7 @@ class AdminAuthProvider extends ChangeNotifier {
 
   String? _token;
   String? _email;
-  String? _role;   // 'admin' | 'manager'
+  String? _role;
 
   String? get token      => _token;
   String? get email      => _email;

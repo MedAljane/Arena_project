@@ -2,7 +2,7 @@ const campusService = require('../services/campus');
 
 module.exports = {
     
-    // @ts-ignore
+    
     async createCampusController(ctx){
         const userId = ctx.state.user.id;
         const { name, description, address, phone, nbTerrains, mainImage, galleryImages } = ctx.request.body;
@@ -20,11 +20,11 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in createCampusController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
-    // @ts-ignore
+    
     async updateCampusController(ctx){
         const { id } = ctx.params;
         const data = ctx.request.body;
@@ -37,12 +37,12 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in updateCampusController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async deleteCampusController(ctx){
         const { id } = ctx.params;
 
@@ -54,24 +54,24 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in deleteCampusController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getCampusesController(ctx){
         try {
             const campuses = await campusService.getCampuses();
             ctx.send(campuses);
         } catch (err) {
             console.error("Error in getCampusesController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getCampusByManagerController(ctx){
         const managerId = ctx.state.user.id;
 
@@ -84,12 +84,12 @@ module.exports = {
             ctx.send(campus);
         } catch (err) {
             console.error("Error in getCampusByManagerController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getCampusByIdController(ctx){
         const { id } = ctx.params;
 
@@ -102,7 +102,7 @@ module.exports = {
             ctx.send(campus);
         } catch (err) {
             console.error("Error in getCampusByIdController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },

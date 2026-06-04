@@ -4,7 +4,7 @@ const service = require('../services/time-slot');
 
 module.exports = {
 
-    // @ts-ignore
+    
     async create(ctx) {
         try {
             const data = ctx.request.body.data;
@@ -29,12 +29,12 @@ module.exports = {
 
             ctx.send({ data: result });
         } catch (error) {
-            // @ts-ignore
+            
             ctx.badRequest(error.message);
         }
     },
 
-    // @ts-ignore
+    
     async update(ctx) {
         const id = ctx.params.id;
 
@@ -42,12 +42,12 @@ module.exports = {
             const result = await service.updateSlot(id, ctx.request.body.data);
             ctx.send({ data: result });
         } catch (error) {
-            // @ts-ignore
+            
             ctx.badRequest(error.message);
         }
     },
 
-    // @ts-ignore
+    
     async delete(ctx) {
         const id = ctx.params.id;
 
@@ -62,14 +62,14 @@ module.exports = {
         ctx.send({ message: 'Time slot deleted successfully' });
     },
 
-    // @ts-ignore
+    
     async getTimeSlots(ctx) {
         try {
             const filters = ctx.query;
             const result = await service.getTimeSlots(filters);
             ctx.send({ data: result });
         } catch (error) {
-            // @ts-ignore
+            
             ctx.badRequest(error.message);
         }
     },

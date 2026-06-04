@@ -20,22 +20,18 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
   String? _error;
   bool    _publishing = false;
 
-  // Expanded day plans
   final Set<int> _expanded = {};
 
-  // Day plan type edit
   Map<String, dynamic>? _editDayPlan;
   String _editDayType = 'normal';
   bool   _savingDayPlan = false;
 
-  // Add slot modal
   Map<String, dynamic>? _addSlotToDayPlan;
   final _slotStart = TextEditingController(text: '14:00');
   final _slotEnd   = TextEditingController(text: '16:00');
   bool  _savingSlot = false;
   String? _slotError;
 
-  // Delete slot
   Map<String, dynamic>? _deleteSlot;
   bool _deletingSlot = false;
 
@@ -204,7 +200,7 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
               final id         = dayPlan['id'] as int;
               final isExpanded = _expanded.contains(id);
               final dayType    = dayPlan['dayType'] as String? ?? 'normal';
-              // Strapi may return snake_case or camelCase depending on version
+
               final slots = ((dayPlan['time_slots'] ?? dayPlan['timeSlots']) as List?) ?? [];
               final dtColor    = _dayTypeColor(dayType);
 
@@ -216,7 +212,6 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
                   border:       Border.all(color: ext.border),
                 ),
                 child: Column(children: [
-                  // Day header
                   InkWell(
                     borderRadius: isExpanded
                         ? const BorderRadius.vertical(top: Radius.circular(14))
@@ -265,7 +260,6 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
                     ),
                   ),
 
-                  // Slots (when expanded)
                   if (isExpanded) ...[
                     Divider(color: ext.border, height: 1),
                     Padding(
@@ -322,7 +316,6 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
         ]),
       ),
 
-      // Edit day plan type
       if (_editDayPlan != null)
         CrudModal(
           title: 'Edit Day Type — ${_editDayPlan!['dayOfWeek']}',
@@ -351,7 +344,6 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
           }),
         ),
 
-      // Add slot modal
       if (_addSlotToDayPlan != null)
         CrudModal(
           title: 'Add Time Slot — ${_addSlotToDayPlan!['dayOfWeek']}',
@@ -369,7 +361,6 @@ class _ManagerAgendaDetailScreenState extends State<ManagerAgendaDetailScreen> {
           ]),
         ),
 
-      // Delete slot
       if (_deleteSlot != null)
         DeleteModal(
           title: 'Delete Slot',

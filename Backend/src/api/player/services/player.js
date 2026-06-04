@@ -4,7 +4,7 @@ module.exports = {
 
     // ── Self-service helpers ──────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async getPlayerProfile(userId) {
         const profile = await strapi.db.query('api::player.player').findOne({
             where: { user: userId },
@@ -27,7 +27,7 @@ module.exports = {
         };
     },
 
-    // @ts-ignore
+    
     async updatePlayerProfile(userId, { username, email, address, phone }) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id: userId } });
         if (!user) throw new Error('User not found');

@@ -2,13 +2,13 @@ const authService = require('../services/auth');
 
 module.exports = {
 
-    // @ts-ignore
+    
     async register(ctx) {
         try {
             const user = await authService.registerUser(ctx.request.body);
             ctx.send(user);
         } catch (err) {
-            // @ts-ignore
+            
 
             ctx.badRequest(err.message);
 
@@ -16,30 +16,30 @@ module.exports = {
 
     },
 
-    // @ts-ignore
+    
     async login(ctx) {
         try {
             const data = await authService.loginUser(ctx.request.body);
             ctx.send(data);
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async resetPassword(ctx) {
         const { token, password } = ctx.request.body;
         try {
             await authService.resetPassword(token, password);
             ctx.send({ message: 'Password reset successful' });
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async changePassword(ctx) {
 
         try {
@@ -54,27 +54,27 @@ module.exports = {
                 await authService.changePassword(user.id, currentPassword, newPassword);
                 ctx.send({ message: 'Password changed successfully' });
             } catch (err) {
-                // @ts-ignore
+                
                 ctx.badRequest(err.message);
             }
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async forgotPassword(ctx) {
         try {
             await authService.forgotPassword(ctx.request.body.email);
             ctx.send({ message: 'Password reset email sent' });
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getMe(ctx) {
         try {
             const user = ctx.state.user;
@@ -82,12 +82,12 @@ module.exports = {
             const data = await authService.getMe(user.id);
             ctx.send(data);
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async logoutController(ctx) {
         try {
             const authHeader = ctx.request.headers.authorization;
@@ -96,7 +96,7 @@ module.exports = {
             await authService.logout(token);
             ctx.send({ message: 'Logged out' });
         } catch (err) {
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     }

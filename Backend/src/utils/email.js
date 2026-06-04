@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// @ts-ignore
+
 transporter.verify(function(error, success) {
     if (error) {
         console.error('Error connecting to SMTP server:', error);
@@ -22,7 +22,7 @@ transporter.verify(function(error, success) {
     }
 });
 
-// @ts-ignore
+
 async function sendEmail(to, subject, text) {
     try {
         const info = await transporter.sendMail({

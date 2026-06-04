@@ -6,19 +6,19 @@ module.exports = {
 
 	// ── Self-service ──────────────────────────────────────────────────────────
 
-	// @ts-ignore
+	
 	async getMe(ctx) {
 		try {
 			const profile = await employeeService.getEmployeeProfile(ctx.state.user.id);
 			ctx.send(profile);
 		} catch (err) {
 			console.error('Error in getMe (employee) controller:', err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	},
 
-	// @ts-ignore
+	
 	async updateMe(ctx) {
 		try {
 			const { username, email, address, phone } = ctx.request.body;
@@ -26,14 +26,14 @@ module.exports = {
 			ctx.send({ message: 'Profile updated successfully', profile });
 		} catch (err) {
 			console.error('Error in updateMe (employee) controller:', err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	},
 
 	// ── Manager management ────────────────────────────────────────────────────
 
-	// @ts-ignore
+	
 	async registerEmployee(ctx) {
 		try {
 			const { username, email, password, address, phone, terrainId } = ctx.request.body;
@@ -45,13 +45,13 @@ module.exports = {
 			});
 		} catch (err) {
 			console.error("Error in registerEmployee controller:", err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 
 	},
 
-	// @ts-ignore
+	
 	async updateEmployee(ctx) {
 		try {
 			const { id } = ctx.params;
@@ -63,12 +63,12 @@ module.exports = {
 			});
 		} catch (err) {
 			console.error("Error in updateEmployee controller:", err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	},
 
-	// @ts-ignore
+	
 	async deleteEmployee(ctx) {
 		try {
 			const { id } = ctx.params;
@@ -79,24 +79,24 @@ module.exports = {
 			});
 		} catch (err) {
 			console.error("Error in deleteEmployee controller:", err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	},
 
-	// @ts-ignore
+	
 	async getEmployees(ctx) {
 		try {
 			const result = await employeeService.getEmployees();
 			ctx.send({result});
 		} catch (err) {
 			console.error("Error in getEmployees controller:", err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	},
 
-	// @ts-ignore
+	
 	async assignTerrain(ctx) {
 		try {
 			const { employeeId, terrainId } = ctx.params;
@@ -107,7 +107,7 @@ module.exports = {
 			});
 		} catch (err) {
 			console.error("Error in assignTerrain controller:", err);
-			// @ts-ignore
+			
 			ctx.badRequest(err.message);
 		}
 	}

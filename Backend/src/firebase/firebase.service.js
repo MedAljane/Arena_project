@@ -38,7 +38,7 @@ async function createConversation({
         participants: [playerUid, employeeUid],
         participantsIds: {
             player:   String(playerId),
-            employee: String(employeeId),   // player ↔ employee (terrain staff)
+            employee: String(employeeId),
         },
         lastMessage:   null,
         lastMessageAt: null,

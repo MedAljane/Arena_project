@@ -1,8 +1,6 @@
 import 'package:Arena/core/config.dart';
 import 'package:dio/dio.dart';
 
-/// Isolated Dio client for the web admin dashboard.
-/// Completely independent from the mobile app's ApiService.
 class AdminClient {
   static final Dio _dio = Dio(
     BaseOptions(
@@ -28,13 +26,10 @@ class AdminClient {
       _dio.put(path, data: data);
   static Future<Response> delete(String path) => _dio.delete(path);
 
-  /// Extracts a human-readable message from a DioException response body
-  /// so screens show "Email already in use" instead of the full Dio stack.
   static String errorMessage(dynamic e) {
     if (e is DioException) {
       final data = e.response?.data;
       if (data is Map) {
-        // { "error": { "message": "..." } }  — Strapi v4/v5 format
         final msg = data['error']?['message']
             ?? data['message']
             ?? data['error']?.toString();

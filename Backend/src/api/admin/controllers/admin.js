@@ -2,7 +2,7 @@ const adminService = require('../services/admin');
 
 module.exports = {
 
-    // @ts-ignore
+    
     async registerAdmin(ctx) {
         try {
 
@@ -15,13 +15,13 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in registerAdmin controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
 
     },
 
-    // @ts-ignore
+    
     async updateAdmin(ctx) {
         try {
             const { id } = ctx.params;
@@ -33,12 +33,12 @@ module.exports = {
             });
         }catch (err) {
             console.error("Error in updateAdmin controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async deleteAdmin(ctx) {
         try {
             const { id } = ctx.params;
@@ -49,12 +49,12 @@ module.exports = {
             });
         }catch (err) {
             console.error("Error in deleteAdmin controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getAdmins(ctx) {
         try {
             const { id } = ctx.params;
@@ -62,7 +62,7 @@ module.exports = {
             ctx.send({result});
         }catch (err) {
             console.error("Error in getAdmins controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },

@@ -16,7 +16,6 @@ async function handleConfirmed(reservationId) {
             return;
         }
 
-        // Find the employee assigned to this terrain
         const terrainWithEmployee = await strapi.db.query('api::terrain.terrain').findOne({
             where: { id: terrain.id || terrain },
             populate: ['employee'],
@@ -28,7 +27,6 @@ async function handleConfirmed(reservationId) {
             return;
         }
 
-        // Ensure player has Firebase UID
         if (!player.firebaseUid) {
             player.firebaseUid = `player-${player.id}`;
             player.fcmToken    = `fcm-player-${player.id}`;
@@ -39,7 +37,6 @@ async function handleConfirmed(reservationId) {
             });
         }
 
-        // Ensure employee has Firebase UID
         if (!employee.firebaseUid) {
             employee.firebaseUid = `employee-${employee.id}`;
             employee.fcmToken    = `fcm-employee-${employee.id}`;

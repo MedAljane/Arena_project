@@ -5,10 +5,9 @@ const { pop } = require('../../../../config/middlewares');
 const { revoke } = require('../../../utils/tokenBlacklist');
 
 module.exports = {
-    // @ts-ignore
+    
     async registerUser({ username, email, password, address, phone }) {
 
-        // create user in global user table
         const existing = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
 
         if (existing) {
@@ -27,7 +26,6 @@ module.exports = {
 
         console.log('User registered:', user.username, user.id);
 
-        // Create player profile linked to the user
         try {
             const player = await strapi.entityService.create('api::player.player', {
                 data: {
@@ -47,7 +45,7 @@ module.exports = {
         }
     },
 
-    // @ts-ignore
+    
     async loginUser({ email, password }) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
 
@@ -65,7 +63,7 @@ module.exports = {
         return { user, token };
     },
 
-    // @ts-ignore
+    
     async resetPassword(token, password) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { resetPasswordToken: token } });
 
@@ -77,7 +75,7 @@ module.exports = {
         await strapi.db.query('plugin::users-permissions.user').update({ where: { id: user.id }, data: { resetPasswordToken: null } });
     },
 
-    // @ts-ignore
+    
     async changePassword(userId, currentPassword, newPassword) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id: userId } });
         if (!user) {
@@ -91,7 +89,7 @@ module.exports = {
         await strapi.plugins['users-permissions'].services.user.edit(user.id, { password: newPassword });
     },
 
-    // @ts-ignore,
+    ,
     async forgotPassword(email) {
         const { sendEmail } = require('../../../utils/email');
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
@@ -116,7 +114,7 @@ module.exports = {
         return { message: 'Password reset email sent' };
     },
 
-    // @ts-ignore
+    
     async getMe(userId) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id: userId }, populate: ['role'] });
 
@@ -131,7 +129,7 @@ module.exports = {
         return { user, profile: playerProfile };
     },
 
-    // @ts-ignore
+    
     async logout(token) {
         if (!token) throw new Error('No token');
 

@@ -4,7 +4,6 @@ module.exports = {
 
     // ── Self-service helpers ──────────────────────────────────────────────────
 
-    // @ts-ignore
     async getManagerProfile(userId) {
         const profile = await strapi.db.query('api::manager.manager').findOne({
             where: { user: userId },
@@ -27,7 +26,6 @@ module.exports = {
         };
     },
 
-    // @ts-ignore
     async updateManagerProfile(userId, { username, email, address, phone }) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id: userId } });
         if (!user) throw new Error('User not found');
@@ -51,12 +49,11 @@ module.exports = {
         return this.getManagerProfile(userId);
     },
 
+
     // ── Admin management ──────────────────────────────────────────────────────
 
-    // @ts-ignore
     async registerManager({ username, email, password, address, phone }) {
 
-        // create user in global user table
         const existing = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
 
         if (existing) {
@@ -75,7 +72,6 @@ module.exports = {
 
         console.log('User registered:', user.username, user.id);
 
-        // Create manager profile linked to the user
         let manager;
         try {
             manager = await strapi.entityService.create('api::manager.manager', {
@@ -112,7 +108,7 @@ module.exports = {
         return { user, managerProfile };
     },
 
-    // @ts-ignore
+    
     async updateManager(id, { username, email, password, address, phone }) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 
@@ -154,7 +150,7 @@ module.exports = {
 
     },
 
-    // @ts-ignore
+    
     async deleteManager(id) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 
@@ -188,13 +184,13 @@ module.exports = {
         return {message: `Manager with ID ${id} deleted successfully`};
     },
 
-    // @ts-ignore
+    
     async getManagers() {
         const users = await strapi.db.query('plugin::users-permissions.user').findMany({
             where: { user_role: 'manager' },
         });
 
-        // @ts-ignore
+        
         const result = await Promise.all(users.map(async (user) => {
             const profile = await strapi.db.query('api::manager.manager').findOne({ where: { user: user.id } });
             return {

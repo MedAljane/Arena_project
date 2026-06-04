@@ -15,8 +15,6 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Firebase is only used on mobile (Firestore chat).
-  // The web admin dashboard connects to the backend via REST — no Firebase needed.
   if (!kIsWeb) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
@@ -65,6 +63,9 @@ class ArenaApp extends StatelessWidget {
         ),
         ProxyProvider<ApiService, ManagerService>(
           update: (_, api, _) => ManagerService(api),
+        ),
+        ProxyProvider<ApiService, AiService>(
+          update: (_, api, _) => AiService(api),
         ),
         ChangeNotifierProvider<PlayerProvider>(create: (_) => PlayerProvider()),
         ChangeNotifierProvider<ManagerProvider>(create: (_) => ManagerProvider()),

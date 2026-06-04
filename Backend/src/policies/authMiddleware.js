@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 const { isRevoked } = require('../utils/tokenBlacklist');
 
-// @ts-ignore
+
 module.exports = async (ctx) => {
     const authHeader = ctx.request.headers.authorization;
 
@@ -57,7 +57,7 @@ module.exports = async (ctx) => {
         return true;
 
     } catch (err) {
-        // @ts-ignore
+        
         console.log(" Midlleware: Invalid token", err.message);
         ctx.status = 401;
         ctx.body = { error: 'Invalid token' };

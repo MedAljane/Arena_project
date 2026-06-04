@@ -1,5 +1,6 @@
 export 'service_exception.dart';
 export 'auth/auth_service.dart';
+export 'ai/ai_service.dart';
 export 'player/player_service.dart';
 export 'manager/manager_service.dart';
 export 'campus/campus_service.dart';

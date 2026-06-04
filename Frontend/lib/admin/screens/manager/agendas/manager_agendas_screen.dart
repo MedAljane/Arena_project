@@ -13,12 +13,10 @@ class ManagerAgendasScreen extends StatefulWidget {
 }
 
 class _ManagerAgendasScreenState extends State<ManagerAgendasScreen> {
-  // All terrains (each has weekAgenda list)
   List<Map<String, dynamic>> _terrains = [];
   bool    _loading = true;
   String? _error;
 
-  // Create agenda modal
   bool _showCreate    = false;
   bool _saving        = false;
   String? _createError;
@@ -26,8 +24,7 @@ class _ManagerAgendasScreenState extends State<ManagerAgendasScreen> {
   int?    _selCampusId;
   DateTime? _weekStart;
 
-  // Delete
-  Map<String, dynamic>? _deleteTarget; // agenda summary
+  Map<String, dynamic>? _deleteTarget;
   bool _deleting = false;
 
   @override
@@ -129,7 +126,6 @@ class _ManagerAgendasScreenState extends State<ManagerAgendasScreen> {
   Widget build(BuildContext context) {
     final ext = context.adminExt;
 
-    // Flatten all agendas across all terrains
     final List<_AgendaRow> all = [];
     for (final terrain in _terrains) {
       final agendas = terrain['weekAgenda'] ?? terrain['week_agenda'] ?? [];
@@ -179,7 +175,7 @@ class _ManagerAgendasScreenState extends State<ManagerAgendasScreen> {
                     2: FlexColumnWidth(3),
                     3: FlexColumnWidth(2),
                     4: FixedColumnWidth(100),
-                    5: IntrinsicColumnWidth(),  // auto-sizes to the widest action set
+                    5: IntrinsicColumnWidth(),
                   },
                   children: [
                     TableRow(
@@ -240,7 +236,6 @@ class _ManagerAgendasScreenState extends State<ManagerAgendasScreen> {
         ]),
       ),
 
-      // Create modal
       if (_showCreate)
         CrudModal(
           title: 'New Week Agenda',

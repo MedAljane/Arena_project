@@ -2,6 +2,7 @@ import 'package:Arena/models/models.dart';
 import 'package:Arena/providers/providers.dart';
 import 'package:Arena/Screens/manager/campus/create_campus_screen.dart';
 import 'package:Arena/Screens/manager/campus/pending_reservations_screen.dart';
+import 'package:Arena/Screens/manager/manager_ai_screen.dart';
 import 'package:Arena/services/services.dart';
 import 'package:Arena/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -230,6 +231,75 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                             else
                               const FaIcon(FontAwesomeIcons.chevronRight,
                                   color: AppColors.textSecondary, size: 11),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // ── AI Assistant card ─────────────────────────────────────
+                    GestureDetector(
+                      onTap: () => Navigator.push(context,
+                          MaterialPageRoute(
+                              builder: (_) => const ManagerAiScreen())),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(1, 22, 71, 0.8),
+                              Color.fromRGBO(38, 49, 77, 0.8),
+                            ],
+                            begin: Alignment.topLeft,
+                            end:   Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                              color: AppColors.neonGreen
+                                  .withValues(alpha: 0.4)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 38, height: 38,
+                              decoration: BoxDecoration(
+                                color:        const Color.fromRGBO(
+                                    46, 204, 113, 0.15),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Center(
+                                child: FaIcon(FontAwesomeIcons.robot,
+                                    color: AppColors.neonGreen, size: 16),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(text: TextSpan(children: [
+                                  TextSpan(text: 'Manager ',
+                                      style: GoogleFonts.inter(
+                                          color:      AppColors.textPrimary,
+                                          fontSize:   13,
+                                          fontWeight: FontWeight.w600)),
+                                  TextSpan(text: 'AI',
+                                      style: GoogleFonts.inter(
+                                          color:      AppColors.neonGreen,
+                                          fontSize:   13,
+                                          fontWeight: FontWeight.w700)),
+                                ])),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Delegate scheduling & admin tasks',
+                                  style: GoogleFonts.inter(
+                                      color:    AppColors.textSecondary,
+                                      fontSize: 11),
+                                ),
+                              ],
+                            )),
+                            const FaIcon(FontAwesomeIcons.arrowUpRightFromSquare,
+                                color: AppColors.neonGreen, size: 12),
                           ],
                         ),
                       ),

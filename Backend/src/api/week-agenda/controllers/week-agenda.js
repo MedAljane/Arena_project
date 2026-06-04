@@ -4,7 +4,7 @@ const weekAgendaService = require('../services/week-agenda');
 
 module.exports = {
 
-    // @ts-ignore
+    
     async create(ctx){
         const managerId = ctx.state.user.id;
         const { weekStartDate, campusId, terrainId } = ctx.request.body;
@@ -17,12 +17,12 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in createWeekAgendaController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async publish(ctx){
         const { id } = ctx.params;
 
@@ -34,12 +34,12 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in publishWeekAgendaController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
      },
 
-     // @ts-ignore
+     
      async getAvailableSlots(ctx) {
         const { campusId, terrainId, date } = ctx.query;
 
@@ -51,12 +51,12 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in getAvailableSlotsController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getTerrainAgenda(ctx) {
         const { campusId, terrainId } = ctx.query;
 
@@ -68,24 +68,24 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in getTerrainAgendaController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getAll(ctx) {
         try {
             const agendas = await weekAgendaService.getAllAgendas();
             ctx.send({ agendas });
         } catch (err) {
             console.error('Error in getAll week-agenda controller:', err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getById(ctx) {
         const { id } = ctx.params;
 
@@ -99,7 +99,7 @@ module.exports = {
         });
 
         if (!agenda) {
-            // @ts-ignore
+            
             ctx.notFound(`Week agenda with ID ${id} not found`);
             return;
         }
@@ -110,7 +110,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async deleteAgenda(ctx) {
         const { id } = ctx.params;
 
@@ -122,7 +122,7 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in deleteWeekAgendaController:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },

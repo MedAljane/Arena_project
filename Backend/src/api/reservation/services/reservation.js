@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
 
-    // @ts-ignore
+    
     async createReservation({ userAuthId, timeSlotId, campusId, terrainId, type, notes }) {
 
         const playerProfile = await strapi.db.query('api::player.player').findOne({ where: { user: userAuthId } });
@@ -115,7 +115,7 @@ module.exports = {
         return reservation;
     },
 
-    // @ts-ignore
+    
     async updateReservation(reservationId, userAuthId, updateData) {
 
         const playerProfile = await strapi.db.query('api::player.player').findOne({ where: { user: userAuthId } });
@@ -149,7 +149,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async cancelReservation(reservationId, userAuthId) {
 
         const playerProfile = await strapi.db.query('api::player.player').findOne({ where: { user: userAuthId } });
@@ -195,7 +195,7 @@ module.exports = {
 
     // ── Manager methods ───────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async getManagerReservations(managerAuthId) {
         const managerProfile = await strapi.db.query('api::manager.manager').findOne({
             where: { user: managerAuthId }
@@ -211,7 +211,7 @@ module.exports = {
 
     // ── Employee methods ──────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async getEmployeeReservations(employeeAuthId) {
         const employeeProfile = await strapi.db.query('api::employee.employee').findOne({
             where: { User: employeeAuthId },
@@ -227,7 +227,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async getPendingReservations(managerAuthId) {
         const managerProfile = await strapi.db.query('api::manager.manager').findOne({
             where: { user: managerAuthId }
@@ -241,7 +241,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async confirmReservation(reservationId, managerAuthId) {
         const managerProfile = await strapi.db.query('api::manager.manager').findOne({
             where: { user: managerAuthId }
@@ -264,7 +264,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async denyReservation(reservationId, managerAuthId) {
         const managerProfile = await strapi.db.query('api::manager.manager').findOne({
             where: { user: managerAuthId }
@@ -297,7 +297,7 @@ module.exports = {
 
     // ── Player methods ────────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async getReservationsByPlayer(userAuthId) {
         const playerProfile = await strapi.db.query('api::player.player').findOne({ where: { user: userAuthId } });
 

@@ -4,7 +4,7 @@ const reservation = require("../../reservation/controllers/reservation");
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-// @ts-ignore
+
 function dateOfDay(weekStartDate, index) {
     const date = new Date(weekStartDate);
     date.setDate(date.getDate() + index);
@@ -13,7 +13,7 @@ function dateOfDay(weekStartDate, index) {
 
 module.exports = {
 
-    // @ts-ignore
+    
     async createWeekAgenda({ weekStartDate, campusId, managerId, terrainId }) {
         const manager = await strapi.db.query('api::manager.manager').findOne({ where: { user: managerId } });
         if (!manager) {
@@ -60,7 +60,6 @@ module.exports = {
                 },
                 populate: ['week_agendum']
             });
-            // build default slots
             const defaultSlots = [
                 ['14:00', '16:00'],
                 ['16:00', '18:00'],
@@ -73,7 +72,6 @@ module.exports = {
             }
 
             let availableSlots = 0;
-            // create slots (concurrent)
             await Promise.all(defaultSlots.map(([startTime, endTime]) =>{
                 strapi.db.query('api::time-slot.time-slot').create({
                     data: {
@@ -104,7 +102,7 @@ module.exports = {
         return await strapi.db.query('api::week-agenda.week-agenda').findOne({ where: { id: agenda.id }, populate: ['campus', 'terrain', 'day_plans'] });
     },
 
-    // @ts-ignore
+    
     async publishWeekAgenda(id) {
         const agenda = await strapi.db.query('api::week-agenda.week-agenda').findOne({ where: { id } });
 
@@ -125,7 +123,7 @@ module.exports = {
         return true;
     },
 
-    // @ts-ignore
+    
     async getAvailableSlots(campusId, terrainId, date) {
 
         const dayPlans = await strapi.db.query('api::day-plan.day-plan').findMany({
@@ -153,7 +151,7 @@ module.exports = {
         return dayPlans;
     },
 
-    // @ts-ignore
+    
     async getTerrainAgenda(campusId, terrainId) {
         const agenda = await strapi.db.query('api::week-agenda.week-agenda').findOne({
             where: {
@@ -169,7 +167,7 @@ module.exports = {
         return agenda;
     },
 
-    // @ts-ignore
+    
     async getAllAgendas() {
         return await strapi.db.query('api::week-agenda.week-agenda').findMany({
             populate: ['campus', 'terrain', 'day_plans'],
@@ -177,7 +175,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async getAgendas(campusId) {
         const agendas = await strapi.db.query('api::week-agenda.week-agenda').findMany({
             where: {
@@ -192,14 +190,13 @@ module.exports = {
         return agendas;
     },
 
-    // @ts-ignore
+    
     async deleteWeekAgenda(id) {
         const agenda = await strapi.db.query('api::week-agenda.week-agenda').findOne({ where: { id }, populate: ['day_plans'] });
         if (!agenda) {
             throw new Error('Week agenda not found');
         }
 
-        // delete associated day plans and their time slots
         await Promise.all(agenda.day_plans.map(async (dayPlan) => {
             await strapi.db.query('api::time-slot.time-slot').deleteMany({ where: { day_plan: dayPlan.id } });
             await strapi.db.query('api::day-plan.day-plan').delete({ where: { id: dayPlan.id } });

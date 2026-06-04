@@ -9,6 +9,7 @@ import 'package:Arena/admin/screens/campuses/campuses_screen.dart';
 import 'package:Arena/admin/screens/employees/employees_screen.dart';
 import 'package:Arena/admin/screens/terrains/terrains_screen.dart';
 import 'package:Arena/admin/screens/week_agendas/week_agendas_screen.dart';
+import 'package:Arena/admin/screens/ai/ai_logs_screen.dart';
 import 'package:Arena/admin/screens/manager/manager_shell.dart';
 import 'package:Arena/admin/screens/manager/overview/manager_overview_screen.dart';
 import 'package:Arena/admin/screens/manager/campus/manager_campus_screen.dart';
@@ -26,14 +27,14 @@ GoRouter buildAdminRouter(AdminAuthProvider auth) => GoRouter(
     final loggedIn = auth.isLoggedIn;
     final loc      = state.matchedLocation;
     final isLogin  = loc == '/login';
-    final role     = auth.userRole;           // declared once, used everywhere below
+    final role     = auth.userRole;
 
     if (!loggedIn && !isLogin) return '/login';
 
     if (loggedIn && isLogin) {
       if (role == 'admin')   return '/admin/dashboard/overview';
       if (role == 'manager') return '/manager/dashboard';
-      return null; // unknown role: stay on login, don't loop
+      return null;
     }
 
     // Role-based protection — only when role is known to prevent cross-redirect loops
@@ -60,6 +61,7 @@ GoRouter buildAdminRouter(AdminAuthProvider auth) => GoRouter(
         GoRoute(path: '/admin/dashboard/employees',   builder: (_, __) => const EmployeesScreen()),
         GoRoute(path: '/admin/dashboard/terrains',    builder: (_, __) => const TerrainsScreen()),
         GoRoute(path: '/admin/dashboard/week-agendas',builder: (_, __) => const WeekAgendasScreen()),
+        GoRoute(path: '/admin/dashboard/ai-logs',     builder: (_, __) => const AiLogsScreen()),
       ],
     ),
 

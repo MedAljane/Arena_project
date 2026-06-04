@@ -1,7 +1,7 @@
 # Ignore Claude temporary/local data
 .claude
 .claude/
-
+./rapport/
 # macOS files
 .DS_Store
 .AppleDouble

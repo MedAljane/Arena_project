@@ -440,6 +440,50 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAiLogAiLog extends Struct.CollectionTypeSchema {
+  collectionName: 'ai_logs';
+  info: {
+    displayName: 'ai_log';
+    pluralName: 'ai-logs';
+    singularName: 'ai-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    actionsTaken: Schema.Attribute.JSON;
+    aiReply: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdAtTimestamp: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    errorMessage: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-log.ai-log'
+    > &
+      Schema.Attribute.Private;
+    model: Schema.Attribute.String;
+    processingMs: Schema.Attribute.Decimal;
+    provider: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String;
+    success: Schema.Attribute.Boolean;
+    tokensUsed: Schema.Attribute.BigInteger;
+    toolsUsed: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    userMessage: Schema.Attribute.Text;
+    userRole: Schema.Attribute.Enumeration<['player', 'manager']>;
+  };
+}
+
 export interface ApiCampusCampus extends Struct.CollectionTypeSchema {
   collectionName: 'campuses';
   info: {
@@ -1314,6 +1358,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ai-log.ai-log': ApiAiLogAiLog;
       'api::campus.campus': ApiCampusCampus;
       'api::day-plan.day-plan': ApiDayPlanDayPlan;
       'api::employee.employee': ApiEmployeeEmployee;

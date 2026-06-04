@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ai_logs",
+  "info": {
+    "singularName": "ai-log",
+    "pluralName": "ai-logs",
+    "displayName": "ai_log"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userId": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "userRole": {
+      "type": "enumeration",
+      "enum": [
+        "player",
+        "manager"
+      ]
+    },
+    "provider": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "userMessage": {
+      "type": "text"
+    },
+    "aiReply": {
+      "type": "text"
+    },
+    "toolsUsed": {
+      "type": "json"
+    },
+    "actionsTaken": {
+      "type": "json"
+    },
+    "tokensUsed": {
+      "type": "biginteger"
+    },
+    "processingMs": {
+      "type": "decimal"
+    },
+    "success": {
+      "type": "boolean"
+    },
+    "errorMessage": {
+      "type": "text"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "createdAtTimestamp": {
+      "type": "datetime"
+    }
+  }
+}

@@ -106,6 +106,13 @@ class _Sidebar extends StatelessWidget {
                   _sectionLabel('Operations', ext),
                   const SizedBox(height: 4),
                   ..._operationsNav.map((n) => _NavTile(item: n, active: loc == n.path)),
+                  const SizedBox(height: 20),
+                  _sectionLabel('Analytics', ext),
+                  const SizedBox(height: 4),
+                  _NavTile(
+                    item:   const _NavItem('/admin/dashboard/ai-logs', 'AI Logs', Icons.smart_toy_outlined),
+                    active: loc == '/admin/dashboard/ai-logs',
+                  ),
                 ],
               ),
             ),

@@ -1,13 +1,9 @@
+import 'package:Arena/Screens/player/player_ai_screen.dart';
 import 'package:Arena/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// The "Arena AI" hero card displayed at the top of the Dashboard.
-///
-/// Contains the branding row, subtitle, and a non-functional
-/// natural-language search bar placeholder. Connect to the AI
-/// endpoint when the NodeJS API is ready.
 class AiHeroCard extends StatelessWidget {
   const AiHeroCard({super.key});
 
@@ -70,8 +66,11 @@ class AiHeroCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // ── Natural-Language Search Bar (placeholder) ─────────────────────
-          Container(
+          // ── Natural-Language Search Bar ───────────────────────────────────
+          GestureDetector(
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const PlayerAiScreen())),
+            child: Container(
             height: 52,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
@@ -116,6 +115,7 @@ class AiHeroCard extends StatelessWidget {
               ],
             ),
           ),
+          ),   // GestureDetector
         ],
       ),
     );

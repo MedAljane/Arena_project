@@ -4,19 +4,19 @@ module.exports = {
 
     // ── Self-service ──────────────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async getMe(ctx) {
         try {
             const profile = await adminService.getManagerProfile(ctx.state.user.id);
             ctx.send(profile);
         } catch (err) {
             console.error('Error in getMe (manager) controller:', err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async updateMe(ctx) {
         try {
             const { username, email, address, phone } = ctx.request.body;
@@ -24,14 +24,14 @@ module.exports = {
             ctx.send({ message: 'Profile updated successfully', profile });
         } catch (err) {
             console.error('Error in updateMe (manager) controller:', err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
     // ── Admin management ──────────────────────────────────────────────────────
 
-    // @ts-ignore
+    
     async registerManager(ctx) {
         try {
 
@@ -44,13 +44,13 @@ module.exports = {
             });
         } catch (err) {
             console.error("Error in registerManager controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
 
     },
 
-    // @ts-ignore
+    
     async updateManager(ctx) {
         try {
             const { id } = ctx.params;
@@ -62,12 +62,12 @@ module.exports = {
             });
         }catch (err) {
             console.error("Error in updateManager controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async deleteManager(ctx) {
         try {
             const { id } = ctx.params;
@@ -78,12 +78,12 @@ module.exports = {
             });
         }catch (err) {
             console.error("Error in deleteManager controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },
 
-    // @ts-ignore
+    
     async getManagers(ctx) {
         try {
             const { id } = ctx.params;
@@ -91,7 +91,7 @@ module.exports = {
             ctx.send({result});
         }catch (err) {
             console.error("Error in getManagers controller:", err);
-            // @ts-ignore
+            
             ctx.badRequest(err.message);
         }
     },

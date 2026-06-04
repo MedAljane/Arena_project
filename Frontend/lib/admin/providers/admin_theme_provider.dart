@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AdminThemeProvider extends ChangeNotifier {
   static const _key = 'admin_theme_dark';
 
-  bool _isDark = true; // default: dark
+  bool _isDark = true;
 
   bool get isDark => _isDark;
   ThemeMode get themeMode => _isDark ? ThemeMode.dark : ThemeMode.light;

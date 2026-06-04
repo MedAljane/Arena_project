@@ -1,6 +1,6 @@
 const errors = require('@strapi/utils');
 
-// @ts-ignore
+
 module.exports = async (ctx) => {
     const user = ctx.state.user;
 

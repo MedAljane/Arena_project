@@ -1,10 +1,9 @@
 const { sendEmail } = require("../../../utils/email");
 
 module.exports = {
-    // @ts-ignore
+    
     async registerAdmin({ username, email, password }) {
 
-        // create user in global user table
         const existing = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });
 
         if (existing) {
@@ -38,7 +37,7 @@ module.exports = {
         return { user, managerProfile };
     },
 
-    // @ts-ignore
+    
     async updateAdmin(id, { username, email }) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 
@@ -65,7 +64,7 @@ module.exports = {
 
     },
 
-    // @ts-ignore
+    
     async deleteAdmin(id) {
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { id } });
 
@@ -86,13 +85,13 @@ module.exports = {
         return {message: `Admin with ID ${id} deleted successfully`};
     },
 
-    // @ts-ignore
+    
     async getAdmins() {
         const users = await strapi.db.query('plugin::users-permissions.user').findMany({
             where: { user_role: 'admin' },
         });
 
-        // @ts-ignore
+        
         const result = await Promise.all(users.map(async (user) => {
             return {
                 id: user.id,

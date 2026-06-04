@@ -4,7 +4,7 @@ const { publish } = require("../../week-agenda/controllers/week-agenda");
 
 module.exports = {
 
-    // @ts-ignore
+    
     async checkDuplicate(dayPlanId, startTime, endTime, excludeId = null) {
         const where = {
             day_plan: { id: parseInt(dayPlanId) },
@@ -13,7 +13,7 @@ module.exports = {
         };
 
         if (excludeId) {
-            // @ts-ignore
+            
             where.id = { $ne: parseInt(excludeId) };
         }
 
@@ -25,7 +25,7 @@ module.exports = {
 
     },
 
-    // @ts-ignore
+    
     async createSlot(data) {
         await this.checkDuplicate(data.day_plan, data.start_time, data.end_time);
         return await strapi.db.query('api::time-slot.time-slot').create({
@@ -40,7 +40,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async updateSlot(id, data) {
 
         if (data.startTime || data.endTime) {
@@ -60,7 +60,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async deleteSlot(id){
         return await strapi.db.query('api::time-slot.time-slot').delete({
             where: { id },
@@ -68,7 +68,7 @@ module.exports = {
         });
     },
 
-    // @ts-ignore
+    
     async getTimeSlots(filters) {
         const where = {};
 

@@ -62,8 +62,6 @@ module.exports = {
                 policies: ['global::authMiddleware', 'global::isManager']
             },
         },
-
-        // Additional route to get all managers with their profiles
         {
             method: 'GET',
             path: '/player/managers',
