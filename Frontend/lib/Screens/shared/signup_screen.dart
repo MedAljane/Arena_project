@@ -78,8 +78,10 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               const SizedBox(height: 53),
               Center(child: Image.asset('assets/arena_logo_1.png', width: 210, height: 210, fit: BoxFit.contain)),
-              Text('Create Account',
-                  style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 32, color: Colors.white)),
+              Center(
+                child: Text('Create Account',
+                    style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 32, color: Colors.white)),
+              ),
               const SizedBox(height: 20),
               _label('Username'),
               const SizedBox(height: 4),

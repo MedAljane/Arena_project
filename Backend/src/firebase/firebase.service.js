@@ -22,7 +22,10 @@ async function createConversation({
     playerUid,
     employeeUid,
     playerId,
-    employeeId
+    employeeId,
+    playerName,
+    employeeName,
+    terrainType,
 }){
     const db = getFirestore();
     const ref = db.collection('conversations').doc(String(reservationId));
@@ -40,6 +43,11 @@ async function createConversation({
             player:   String(playerId),
             employee: String(employeeId),
         },
+        participantNames: {
+            player:   playerName   || `Player ${playerId}`,
+            employee: employeeName || `Employee ${employeeId}`,
+        },
+        terrainType:   terrainType || null,
         lastMessage:   null,
         lastMessageAt: null,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),

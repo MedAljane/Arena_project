@@ -198,6 +198,23 @@ class _ConversationStream extends StatelessWidget {
               final reservation = resId != null
                   ? resProv.reservations.where((r) => r.id == resId).firstOrNull
                   : null;
+
+              // Determine the other participant's name from Firestore doc data.
+              final names = data['participantNames'] as Map<String, dynamic>?;
+              final role  = context.read<AuthProvider>().role;
+              final String otherName = names != null
+                  ? (role == UserRole.employee
+                      ? (names['player']   as String? ?? 'Player')
+                      : (names['employee'] as String? ?? 'Arena Support'))
+                  : 'Arena Support';
+              final String? employeeName = names?['employee'] as String?;
+              final String? playerName   = names?['player']   as String?;
+
+              // Terrain type from Firestore doc, with fallback to loaded reservation.
+              final String? terrainTypeName =
+                  (data['terrainType'] as String?) ??
+                  reservation?.terrain?.type.name;
+
               return _ReservationConversationTile(
                 doc:         doc,
                 reservation: reservation,
@@ -205,8 +222,13 @@ class _ConversationStream extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => ConversationScreen(
-                      conversationId: doc.id,
-                      title:          'Arena Support',
+                      conversationId:  doc.id,
+                      title:           otherName,
+                      reservationId:   resId,
+                      terrainTypeName: terrainTypeName,
+                      employeeName:    employeeName,
+                      playerName:      playerName,
+                      isEmployee:      role == UserRole.employee,
                     ),
                   ),
                 ),
@@ -250,15 +272,16 @@ class _ReservationConversationTile extends StatelessWidget {
     final lastMsgAt = data['lastMessageAt'];
     final timeLabel = _fmtTime(lastMsgAt);
 
-    // Title: terrain type + slot time if reservation is known
-    String title = 'Arena Support';
-    dynamic icon = FontAwesomeIcons.trophy;
+    // Title: prefer loaded reservation, fall back to Firestore doc fields.
+    final docTerrainType  = data['terrainType']   as String?;
+    final docReservationId = data['reservationId'] as String?;
 
     final terrain = reservation?.terrain;
-    if (terrain != null) {
-      title = '${terrain.type.name} Booking';
-      icon  = _iconFor(terrain.type.name);
-    }
+    final String? rawType = terrain?.type.name ?? docTerrainType;
+
+    String title = rawType != null ? '$rawType Booking' : 'Arena Support';
+    final dynamic icon = _iconFor(rawType);
+    final String? resIdLabel = docReservationId ?? reservation?.id.toString();
 
     return Material(
       color: AppColors.surface,
@@ -318,6 +341,14 @@ class _ReservationConversationTile extends StatelessWidget {
                                   fontSize: 11)),
                       ],
                     ),
+                    if (resIdLabel != null) ...[
+                      const SizedBox(height: 2),
+                      Text('Res. #$resIdLabel',
+                          style: GoogleFonts.inter(
+                              color: AppColors.neonGreen,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500)),
+                    ],
                     const SizedBox(height: 3),
                     Text(lastMsg,
                         maxLines: 1,

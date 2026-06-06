@@ -54,8 +54,11 @@ async function handleConfirmed(reservationId) {
             reservationId,
             playerUid,
             employeeUid,
-            playerId:   player.id,
-            employeeId: employee.id,
+            playerId:     player.id,
+            employeeId:   employee.id,
+            playerName:   player.nom,
+            employeeName: employee.nom,
+            terrainType:  terrainWithEmployee.Type,
         });
 
         console.log(`Conversation (player ↔ employee) created for reservation ID: ${reservationId}`);

@@ -89,7 +89,6 @@ module.exports = {
         await strapi.plugins['users-permissions'].services.user.edit(user.id, { password: newPassword });
     },
 
-    ,
     async forgotPassword(email) {
         const { sendEmail } = require('../../../utils/email');
         const user = await strapi.db.query('plugin::users-permissions.user').findOne({ where: { email } });

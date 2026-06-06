@@ -11,11 +11,21 @@ import 'package:provider/provider.dart';
 class ConversationScreen extends StatefulWidget {
   final String conversationId;
   final String title;
+  final int? reservationId;
+  final String? terrainTypeName;
+  final String? employeeName;
+  final String? playerName;
+  final bool isEmployee;
 
   const ConversationScreen({
     super.key,
     required this.conversationId,
     required this.title,
+    this.reservationId,
+    this.terrainTypeName,
+    this.employeeName,
+    this.playerName,
+    this.isEmployee = false,
   });
 
   @override
@@ -132,21 +142,29 @@ class _ConversationScreenState extends State<ConversationScreen> {
                             style: GoogleFonts.montserrat(
                                 color: AppColors.textPrimary,
                                 fontSize: 15, fontWeight: FontWeight.w700)),
-                        Row(
-                          children: [
-                            Container(
-                              width: 7, height: 7,
-                              decoration: const BoxDecoration(
-                                color: AppColors.neonGreen,
-                                shape: BoxShape.circle,
+                        if (widget.reservationId != null)
+                          Text(
+                            'Res. #${widget.reservationId}'
+                            '${widget.terrainTypeName != null ? ' · ${widget.terrainTypeName}' : ''}',
+                            style: GoogleFonts.inter(
+                                color: AppColors.textSecondary, fontSize: 11),
+                          )
+                        else
+                          Row(
+                            children: [
+                              Container(
+                                width: 7, height: 7,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.neonGreen,
+                                  shape: BoxShape.circle,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 5),
-                            Text('Live',
-                                style: GoogleFonts.inter(
-                                    color: AppColors.neonGreen, fontSize: 11)),
-                          ],
-                        ),
+                              const SizedBox(width: 5),
+                              Text('Live',
+                                  style: GoogleFonts.inter(
+                                      color: AppColors.neonGreen, fontSize: 11)),
+                            ],
+                          ),
                       ],
                     ),
                   ),
@@ -154,6 +172,61 @@ class _ConversationScreenState extends State<ConversationScreen> {
               ),
             ),
             Divider(color: AppColors.divider, height: 16, thickness: 1),
+
+            // ── Reservation welcome banner ────────────────────────────────
+            if (widget.reservationId != null)
+              Padding(
+                padding: EdgeInsets.fromLTRB(hPad, 0, hPad, 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                        color: const Color.fromRGBO(46, 204, 113, 0.2)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        const FaIcon(FontAwesomeIcons.circleInfo,
+                            color: AppColors.neonGreen, size: 13),
+                        const SizedBox(width: 7),
+                        Expanded(
+                          child: Text(
+                            widget.isEmployee
+                                ? 'You are the support agent for the'
+                                  '${widget.terrainTypeName != null ? ' ${widget.terrainTypeName}' : ''}'
+                                  ' terrain reservation #${widget.reservationId}'
+                                : 'Welcome to the'
+                                  '${widget.terrainTypeName != null ? ' ${widget.terrainTypeName}' : ''}'
+                                  ' terrain reservation #${widget.reservationId} chatroom',
+                            style: GoogleFonts.montserrat(
+                                color: AppColors.textPrimary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 8),
+                      Text(
+                        'This chat was created upon reservation approval.',
+                        style: GoogleFonts.inter(
+                            color: AppColors.textSecondary, fontSize: 11.5),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        widget.isEmployee
+                            ? 'We hope you can provide a smooth coordination experience for ${widget.playerName ?? 'the player'}.'
+                            : 'We hope ${widget.employeeName ?? 'our support team'} can answer all your questions and provide a smooth coordination experience.',
+                        style: GoogleFonts.inter(
+                            color: AppColors.textSecondary, fontSize: 11.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
             // ── Real-time message list ────────────────────────────────────
             Expanded(
