@@ -107,7 +107,8 @@ Backend/src/
 │   │       ├── provider.js      # LLM provider abstraction (Gemini, OpenAI, Ollama)
 │   │       ├── player-tools.js  # Tool definitions for player AI
 │   │       └── manager-tools.js # Tool definitions for manager AI
-│   ├── ai-log/            # Per-turn AI conversation logging
+│   ├── ai-assisstant-chat-logs/           # Per-turn AI conversation logging
+│   ├── ai-assisstant-config/              # Per-role AI assistant tuning (provider, model, generation params)
 │   ├── campus/            # Sports facility CRUD
 │   ├── terrain/           # Individual field CRUD
 │   ├── player/            # Player profiles and player-scoped endpoints
@@ -160,7 +161,8 @@ Backend/src/
 | WeekAgenda | weekStartDate, statu (Draft/Published), terrain, campus, day_plans |
 | DayPlan | dayOfWeek, date, dayType (normal/urgent_only/day_off), notes, time_slots |
 | TimeSlot | startTime (HH:MM), endTime, isActive, reservation |
-| AiLog | userAuthId, userRole, provider, model, userMessage, aiReply, toolsUsed, tokensUsed, processingMs, success |
+| AiAssisstantChatLog | userAuthId, userRole, provider, model, userMessage, aiReply, toolsUsed, tokensUsed, processingMs, success |
+| AiAssisstantConfig | provider, model, temperature, maxTokens, maxSteps, assisstant_config_for (Player/Manager), topP, topK, presencePenalty, frequencyPenalty, stopSequences, seed, maxRetries, toolChoice |
 
 **Schema notes:**
 - Campus fields only (`Name`, `Address`, `NbTerrains`, `Lat`, `Long`) use PascalCase; all other models use camelCase
@@ -171,7 +173,7 @@ Backend/src/
 
 ## AI Assistants
 
-Both roles get a dedicated AI agent backed by the Vercel AI SDK with tool-calling support. The provider is selected via `LLM_PROVIDER` environment variable (default: `gemini`).
+Both roles get a dedicated AI agent backed by the Vercel AI SDK with tool-calling support. The provider/model and generation parameters are resolved per-role from the **AI Assistant Config** (see below), falling back to the `LLM_PROVIDER` environment variable and hardcoded defaults (default provider: `gemini`) when no config row exists.
 
 **Supported providers:**
 - `gemini` — Google Gemini 2.5 Flash
@@ -194,7 +196,7 @@ The player assistant can search for available slots and complete bookings withou
 | bookReservation | Create a reservation |
 | cancelReservation | Cancel a booking |
 
-Max tool steps per turn: **8**
+Default max tool steps per turn: **8** (overridable via AI Assistant Config)
 
 ### Manager AI
 
@@ -217,11 +219,26 @@ The manager assistant handles multi-step agenda operations, including creating a
 | confirmReservation / cancelReservation | Handle bookings |
 | deleteAgenda | Remove a draft or published agenda |
 
-Max tool steps per turn: **20**
+Default max tool steps per turn: **20** (overridable via AI Assistant Config)
 
-### AI Logging
+### AI Assistant Config
 
-Every conversation turn is logged to the `ai-log` collection:
+Admins can tune each role's assistant from the dashboard (`AI Assistant Config` screen) without redeploying. Settings are stored per role (`Player` / `Manager`) in the `ai-assisstant-config` collection and resolved at request time via `getConfigForRole(role)`, which fills in any missing field from hardcoded defaults.
+
+**Common (required) fields:** `provider`, `model`, `temperature`, `maxTokens`, `maxSteps`
+
+**Advanced (optional) fields:** `topP`, `topK`, `presencePenalty`, `frequencyPenalty`, `stopSequences`, `seed`, `maxRetries`, `toolChoice` — passed through to `generateText()` only when explicitly set, so leaving them blank uses the AI SDK's own defaults.
+
+**Routes (admin token required):**
+
+```
+GET /admin/ai-config           → { Player: {...}, Manager: {...} }
+PUT /admin/ai-config/:role     → upsert the config row for 'Player' | 'Manager'
+```
+
+### AI Assistant Chat Logs
+
+Every conversation turn is logged to the `ai-assisstant-chat-log` collection (visible in the dashboard under `AI Assistant Chat Logs`):
 
 ```
 userAuthId, userRole, provider, model
@@ -302,6 +319,10 @@ GET    /admin/employees
 GET    /admin/get-all-campuses
 GET    /admin/terrains
 GET    /admin/week-agendas
+GET    /admin/ai-stats
+GET    /admin/ai-assisstant-chat-log
+GET    /admin/ai-config
+PUT    /admin/ai-config/:role
 ```
 
 **Note:** API response shapes are inconsistent across endpoints. Examples:

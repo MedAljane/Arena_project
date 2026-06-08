@@ -20,7 +20,7 @@ async function logTurn({
     sessionId,
 }) {
     try {
-        await strapi.db.query('api::ai-log.ai-log').create({
+        await strapi.db.query('api::ai-assisstant-chat-log.ai-assisstant-chat-log').create({
             data: {
                 userId:             { connect: [{ id: userAuthId }] },
                 userRole,
@@ -41,7 +41,7 @@ async function logTurn({
         });
     } catch (err) {
         // Logging must never crash the main chat flow
-        console.error('[ai-log] Failed to save log entry:', err.message);
+        console.error('[ai-assisstant-chat-log] Failed to save log entry:', err.message);
     }
 }
 

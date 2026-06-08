@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "ai_logs",
+  "collectionName": "ai-assisstant-chat-logs",
   "info": {
-    "singularName": "ai-log",
-    "pluralName": "ai-logs",
-    "displayName": "ai_log"
+    "singularName": "ai-assisstant-chat-log",
+    "pluralName": "ai-assisstant-chat-logs",
+    "displayName": "aiAssistantChatLogs"
   },
   "options": {
     "draftAndPublish": true

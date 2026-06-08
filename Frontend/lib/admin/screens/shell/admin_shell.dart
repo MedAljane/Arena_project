@@ -110,8 +110,12 @@ class _Sidebar extends StatelessWidget {
                   _sectionLabel('Analytics', ext),
                   const SizedBox(height: 4),
                   _NavTile(
-                    item:   const _NavItem('/admin/dashboard/ai-logs', 'AI Logs', Icons.smart_toy_outlined),
-                    active: loc == '/admin/dashboard/ai-logs',
+                    item:   const _NavItem('/admin/dashboard/ai-assisstant-chat-log', 'AI Assistant Chat Logs', Icons.smart_toy_outlined),
+                    active: loc == '/admin/dashboard/ai-assisstant-chat-log',
+                  ),
+                  _NavTile(
+                    item:   const _NavItem('/admin/dashboard/ai-config', 'AI Assistant Config', Icons.tune_outlined),
+                    active: loc == '/admin/dashboard/ai-config',
                   ),
                 ],
               ),

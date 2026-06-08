@@ -440,12 +440,13 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAiLogAiLog extends Struct.CollectionTypeSchema {
-  collectionName: 'ai_logs';
+export interface ApiAiAssisstantChatLogsAiAssisstantChatLog
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ai-assisstant-chat-logs';
   info: {
-    displayName: 'ai_log';
-    pluralName: 'ai-logs';
-    singularName: 'ai-log';
+    displayName: 'aiAssistantChatLogs';
+    pluralName: 'ai-assisstant-chat-logs';
+    singularName: 'ai-assisstant-chat-log';
   };
   options: {
     draftAndPublish: true;
@@ -461,7 +462,7 @@ export interface ApiAiLogAiLog extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::ai-log.ai-log'
+      'api::ai-assisstant-chat-logs.ai-assisstant-chat-log'
     > &
       Schema.Attribute.Private;
     model: Schema.Attribute.String;
@@ -481,6 +482,50 @@ export interface ApiAiLogAiLog extends Struct.CollectionTypeSchema {
     >;
     userMessage: Schema.Attribute.Text;
     userRole: Schema.Attribute.Enumeration<['player', 'manager']>;
+  };
+}
+
+export interface ApiAiAssisstantConfigAiAssisstantConfig
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'ai_assisstant_configs';
+  info: {
+    displayName: 'aiAssisstantConfig';
+    pluralName: 'ai-assisstant-configs';
+    singularName: 'ai-assisstant-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    assisstant_config_for: Schema.Attribute.Enumeration<['Player', 'Manager']> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    frequencyPenalty: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ai-assisstant-config.ai-assisstant-config'
+    > &
+      Schema.Attribute.Private;
+    maxRetries: Schema.Attribute.Integer;
+    maxSteps: Schema.Attribute.Integer & Schema.Attribute.Required;
+    maxTokens: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    model: Schema.Attribute.String & Schema.Attribute.Required;
+    presencePenalty: Schema.Attribute.Decimal;
+    provider: Schema.Attribute.Enumeration<['gemini', 'openai', 'ollama']> &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    seed: Schema.Attribute.Integer;
+    stopSequences: Schema.Attribute.JSON;
+    temperature: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    toolChoice: Schema.Attribute.Enumeration<['auto', 'required', 'none']>;
+    topK: Schema.Attribute.Integer;
+    topP: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1358,7 +1403,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::ai-log.ai-log': ApiAiLogAiLog;
+      'api::ai-assisstant-chat-logs.ai-assisstant-chat-log': ApiAiAssisstantChatLogsAiAssisstantChatLog;
+      'api::ai-assisstant-config.ai-assisstant-config': ApiAiAssisstantConfigAiAssisstantConfig;
       'api::campus.campus': ApiCampusCampus;
       'api::day-plan.day-plan': ApiDayPlanDayPlan;
       'api::employee.employee': ApiEmployeeEmployee;

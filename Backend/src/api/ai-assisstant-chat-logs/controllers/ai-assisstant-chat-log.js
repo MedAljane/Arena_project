@@ -16,7 +16,7 @@ module.exports = {
             if (onlyErrors) where.success  = false;
             if (search)     where.userMessage = { $containsi: search };
 
-            const db = strapi.db.query('api::ai-log.ai-log');
+            const db = strapi.db.query('api::ai-assisstant-chat-log.ai-assisstant-chat-log');
             const [logs, total] = await Promise.all([
                 db.findMany({
                     where,
@@ -30,7 +30,7 @@ module.exports = {
 
             ctx.send({ data: logs, meta: { total, page, pageSize } });
         } catch (err) {
-            console.error('[ai-log] findLogs error:', err);
+            console.error('[ai-assisstant-chat-log] findLogs error:', err);
             ctx.badRequest(err.message);
         }
     },
@@ -38,7 +38,7 @@ module.exports = {
     
     async stats(ctx) {
         try {
-            const db = strapi.db.query('api::ai-log.ai-log');
+            const db = strapi.db.query('api::ai-assisstant-chat-log.ai-assisstant-chat-log');
 
             // ── Aggregate counts ──────────────────────────────────────────────
 
@@ -149,7 +149,7 @@ module.exports = {
                 },
             });
         } catch (err) {
-            console.error('[ai-log] stats error:', err);
+            console.error('[ai-assisstant-chat-log] stats error:', err);
             ctx.badRequest(err.message);
         }
     },

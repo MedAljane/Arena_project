@@ -137,7 +137,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
               ]),
               const Spacer(),
               GestureDetector(
-                onTap: () => context.go('/admin/dashboard/ai-logs'),
+                onTap: () => context.go('/admin/dashboard/ai-assisstant-chat-log'),
                 child: Text('View all logs →',
                     style: TextStyle(color: AdminColors.neonGreen,
                         fontSize: 12, fontWeight: FontWeight.w600)),

@@ -48,7 +48,7 @@ class _AiLogsScreenState extends State<AiLogsScreen> {
   Future<void> _fetchLogs() async {
     setState(() { _logsLoading = true; _logsError = null; });
     try {
-      final params = StringBuffer('/admin/ai-logs?limit=100');
+      final params = StringBuffer('/admin/ai-assisstant-chat-log?limit=100');
       if (_search.isNotEmpty)   params.write('&search=${Uri.encodeComponent(_search)}');
       if (_roleFilter.isNotEmpty) params.write('&role=$_roleFilter');
       if (_errorsOnly)          params.write('&errors=true');

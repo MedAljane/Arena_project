@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ai_assisstant_configs",
+  "info": {
+    "singularName": "ai-assisstant-config",
+    "pluralName": "ai-assisstant-configs",
+    "displayName": "aiAssisstantConfig"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "gemini",
+        "openai",
+        "ollama"
+      ]
+    },
+    "model": {
+      "type": "string",
+      "required": true
+    },
+    "temperature": {
+      "type": "decimal",
+      "required": true
+    },
+    "maxTokens": {
+      "type": "biginteger",
+      "required": true
+    },
+    "maxSteps": {
+      "type": "integer",
+      "required": true
+    },
+    "assisstant_config_for": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Player",
+        "Manager"
+      ]
+    },
+    "topP": {
+      "type": "decimal"
+    },
+    "topK": {
+      "type": "integer"
+    },
+    "presencePenalty": {
+      "type": "decimal"
+    },
+    "frequencyPenalty": {
+      "type": "decimal"
+    },
+    "stopSequences": {
+      "type": "json"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "maxRetries": {
+      "type": "integer"
+    },
+    "toolChoice": {
+      "type": "enumeration",
+      "enum": [
+        "auto",
+        "required",
+        "none"
+      ]
+    }
+  }
+}

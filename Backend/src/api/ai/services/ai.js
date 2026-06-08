@@ -5,7 +5,7 @@ const { generateText }      = require('ai');
 const { getModel }          = require('./provider');
 const { buildPlayerTools }  = require('./player-tools');
 const { buildManagerTools } = require('./manager-tools');
-const { logTurn }           = require('../../ai-log/services/ai-log');
+const { logTurn }           = require('../../ai-assisstant-chat-logs/services/ai-assisstant-chat-log');
 
 // ── System prompts ────────────────────────────────────────────────────────────
 
@@ -68,6 +68,30 @@ function totalTokens(result) {
     return (u.promptTokens || 0) + (u.completionTokens || 0);
 }
 
+const ADVANCED_GENERATION_FIELDS = [
+    'topP', 'topK', 'presencePenalty', 'frequencyPenalty',
+    'stopSequences', 'seed', 'maxRetries', 'toolChoice',
+];
+
+/** Build the generateText() tuning options from a resolved assistant config. */
+function generationOptions(config) {
+    const opts = {
+        temperature: config.temperature,
+        maxTokens:   config.maxTokens,
+        maxSteps:    config.maxSteps,
+    };
+    for (const field of ADVANCED_GENERATION_FIELDS) {
+        if (config[field] !== undefined && config[field] !== null) opts[field] = config[field];
+    }
+    return opts;
+}
+
+function getConfigForRole(role) {
+    return strapi
+        .service('api::ai-assisstant-config.ai-assisstant-config')
+        .getConfigForRole(role);
+}
+
 // ── Core chat functions ───────────────────────────────────────────────────────
 
 /**
@@ -78,7 +102,8 @@ function totalTokens(result) {
  * @param {string} [sessionId] - UUID grouping this conversation
  */
 async function playerChat(playerAuthId, message, history = [], sessionId = '') {
-    const model    = getModel();
+    const config   = await getConfigForRole('Player');
+    const model    = getModel(config.provider, config.model);
     const tools    = buildPlayerTools(playerAuthId);
     const messages = [...history, { role: 'user', content: message }];
     const start    = Date.now();
@@ -86,7 +111,10 @@ async function playerChat(playerAuthId, message, history = [], sessionId = '') {
     let result, actionsPerformed, success = true, errorMessage = null;
 
     try {
-        result           = await generateText({ model, system: PLAYER_SYSTEM, messages, tools, maxSteps: 8 });
+        result = await generateText({
+            model, system: PLAYER_SYSTEM, messages, tools,
+            ...generationOptions(config),
+        });
         actionsPerformed = extractToolCalls(result);
     } catch (err) {
         success      = false;
@@ -98,7 +126,7 @@ async function playerChat(playerAuthId, message, history = [], sessionId = '') {
         await logTurn({
             userAuthId:   playerAuthId,
             userRole:     'player',
-            provider:     process.env.LLM_PROVIDER || 'gemini',
+            provider:     config.provider,
             model:        String(model),
             userMessage:  message,
             aiReply:      result?.text || '',
@@ -123,7 +151,8 @@ async function playerChat(playerAuthId, message, history = [], sessionId = '') {
  * @param {string} [sessionId]
  */
 async function managerChat(managerAuthId, message, history = [], sessionId = '') {
-    const model    = getModel();
+    const config   = await getConfigForRole('Manager');
+    const model    = getModel(config.provider, config.model);
     const tools    = buildManagerTools(managerAuthId);
     const messages = [...history, { role: 'user', content: message }];
     const start    = Date.now();
@@ -131,7 +160,10 @@ async function managerChat(managerAuthId, message, history = [], sessionId = '')
     let result, actionsPerformed, success = true, errorMessage = null;
 
     try {
-        result           = await generateText({ model, system: MANAGER_SYSTEM, messages, tools, maxSteps: 20 });
+        result = await generateText({
+            model, system: MANAGER_SYSTEM, messages, tools,
+            ...generationOptions(config),
+        });
         actionsPerformed = extractToolCalls(result);
     } catch (err) {
         success      = false;
@@ -141,7 +173,7 @@ async function managerChat(managerAuthId, message, history = [], sessionId = '')
         await logTurn({
             userAuthId:   managerAuthId,
             userRole:     'manager',
-            provider:     process.env.LLM_PROVIDER || 'gemini',
+            provider:     config.provider,
             model:        String(model),
             userMessage:  message,
             aiReply:      result?.text || '',

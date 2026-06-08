@@ -5,7 +5,7 @@ module.exports = {
         {
             method:  'GET',
             path:    '/admin/ai-stats',
-            handler: 'ai-log.stats',
+            handler: 'ai-assisstant-chat-log.stats',
             config: {
                 auth:     false,
                 policies: ['global::authMiddleware', 'global::isAdmin'],
@@ -13,8 +13,8 @@ module.exports = {
         },
         {
             method:  'GET',
-            path:    '/admin/ai-logs',
-            handler: 'ai-log.findLogs',
+            path:    '/admin/ai-assisstant-chat-log',
+            handler: 'ai-assisstant-chat-log.findLogs',
             config: {
                 auth:     false,
                 policies: ['global::authMiddleware', 'global::isAdmin'],
